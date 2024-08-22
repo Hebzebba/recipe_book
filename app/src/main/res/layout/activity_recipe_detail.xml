@@ -20,13 +20,23 @@
         android:id="@+id/detailImageView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:layout_marginTop="30dp"
+        />
     <TextView
         android:id="@+id/detailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Detailed information"
+        android:textStyle="bold"
         android:textSize="18sp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/instructionsView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp" />
 
 </LinearLayout>

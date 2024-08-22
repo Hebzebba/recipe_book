@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config >
+    <base-config  usesCleartextTraffic="true" />
+    <domain-config cleartextTrafficPermitted="true" usesCleartextTraffic="true">
+        <domain includeSubdomains="true">192.168.100.68:3000</domain>
+    </domain-config>
+</network-security-config>

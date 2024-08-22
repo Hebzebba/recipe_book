@@ -11,15 +11,19 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import model.RecipeModel;
+
 public class GridAdapter  extends BaseAdapter implements Filterable {
     private final Context context;
-    private final List<String> itemList;
-    private   List<String> filteredItemList;
+    private final List<RecipeModel> itemList;
+    private   List<RecipeModel> filteredItemList;
 
-    public  GridAdapter(Context context, List<String> itemList){
+    public  GridAdapter(Context context, List<RecipeModel> itemList){
         this.context = context;
         this.itemList = itemList;
         this.filteredItemList = itemList;
@@ -50,12 +54,16 @@ public class GridAdapter  extends BaseAdapter implements Filterable {
         TextView textView= convertView.findViewById(R.id.textView);
 
         // Set data based on the item
-        textView.setText(itemList.get(position));
-        // Optionally set an image based on the item
-        imageView.setImageResource(R.drawable.bg1);
+        textView.setText(itemList.get(position).getName());
+
+        Picasso.get()
+                .load(itemList.get(position).getImageUrl())
+                .into(imageView);
         convertView.setOnClickListener(v->{
             Intent intent = new Intent(context, RecipeDetailActivity.class);
-            intent.putExtra("ITEM_NAME", filteredItemList.get(position));
+            intent.putExtra("ITEM_NAME", filteredItemList.get(position).getName());
+            intent.putExtra("ITEM_IMAGE", filteredItemList.get(position).getImageUrl());
+            intent.putExtra("INSTRUCTIONS", filteredItemList.get(position).getInstructions());
             context.startActivity(intent);
         });
         return convertView;
@@ -70,9 +78,9 @@ public class GridAdapter  extends BaseAdapter implements Filterable {
                 if (charString.isEmpty()) {
                     filteredItemList = itemList;
                 } else {
-                    List<String> filteredList = new ArrayList<>();
-                    for (String item : itemList) {
-                        if (item.toLowerCase().contains(charString.toLowerCase())) {
+                    List<RecipeModel> filteredList = new ArrayList<>();
+                    for (RecipeModel item : itemList) {
+                        if (item.getName().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(item);
                         }
                     }
@@ -86,7 +94,7 @@ public class GridAdapter  extends BaseAdapter implements Filterable {
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                filteredItemList = (List<String>) results.values;
+                filteredItemList = (List<RecipeModel>) results.values;
                 notifyDataSetChanged();
             }
         };

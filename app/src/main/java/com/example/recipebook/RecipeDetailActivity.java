@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.squareup.picasso.Picasso;
+
 public class RecipeDetailActivity extends AppCompatActivity {
 
     @Override
@@ -17,10 +19,19 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         ImageView detailImageView = findViewById(R.id.detailImageView);
         TextView detailTextView = findViewById(R.id.detailTextView);
+        TextView instructionsView = findViewById(R.id.instructionsView);
+
+
         Intent  intent  = getIntent();
+        String itemImageURl = intent.getStringExtra("ITEM_IMAGE");
         String itemName = intent.getStringExtra("ITEM_NAME");
-        detailImageView.setImageResource(R.drawable.bg1);
+        String instructions= intent.getStringExtra("INSTRUCTIONS");
+
+        Picasso.get()
+                .load(itemImageURl)
+                .into(detailImageView);
         detailTextView.setText(itemName);
+        instructionsView.setText(instructions);
     }
 
     public  void  backToRecipeList(View v){

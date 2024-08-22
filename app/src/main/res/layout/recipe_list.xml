@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="2dp"
-        android:background="@color/black"
+        android:background="#F6F5F2"
         android:gravity="center"
         android:horizontalSpacing="20dp"
         android:numColumns="3"
