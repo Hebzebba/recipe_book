@@ -1,5 +1,7 @@
 package model;
 
+import androidx.annotation.NonNull;
+
 public class RecipeModel {
     private int Id;
     private String name;
@@ -43,5 +45,17 @@ public class RecipeModel {
 
     public void setInstructions(String instructions) {
         this.instructions = instructions;
+    }
+
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "RecipeModel{" +
+                "Id=" + Id +
+                ", name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", instructions='" + instructions + '\'' +
+                '}';
     }
 }

@@ -7,22 +7,22 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
     }
 
-    public void loginBtn(View view){
-        Intent intent = new Intent(this, LoginActivity.class);
+    public void backToLandingPage(View view){
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    public void  registerBtn (View view){
-        Intent intent = new Intent(this, RegisterActivity.class);
+    public void login(View view){
+        Intent intent = new Intent(this, RecipeListActivity.class);
         startActivity(intent);
     }
 }

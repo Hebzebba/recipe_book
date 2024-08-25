@@ -2,6 +2,7 @@ package com.example.recipebook;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import model.RecipeModel;
@@ -47,17 +49,18 @@ public class GridAdapter  extends BaseAdapter implements Filterable {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.grid_item, parent, false);
+            LayoutInflater inflater = LayoutInflater.from(context);
+            convertView = inflater.inflate(R.layout.grid_item, parent, false);
         }
 
         ImageView imageView= convertView.findViewById(R.id.imageView);
         TextView textView= convertView.findViewById(R.id.textView);
 
         // Set data based on the item
-        textView.setText(itemList.get(position).getName());
+        textView.setText(filteredItemList.get(position).getName());
 
         Picasso.get()
-                .load(itemList.get(position).getImageUrl())
+                .load(filteredItemList.get(position).getImageUrl())
                 .into(imageView);
         convertView.setOnClickListener(v->{
             Intent intent = new Intent(context, RecipeDetailActivity.class);
@@ -72,9 +75,10 @@ public class GridAdapter  extends BaseAdapter implements Filterable {
     @Override
     public Filter getFilter() {
         return new Filter() {
+
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                String charString= constraint == null ? "" : constraint.toString().toLowerCase();
+                String charString = constraint.toString().toLowerCase();
                 if (charString.isEmpty()) {
                     filteredItemList = itemList;
                 } else {
@@ -87,13 +91,15 @@ public class GridAdapter  extends BaseAdapter implements Filterable {
                     filteredItemList = filteredList;
                 }
 
-                FilterResults filterResults=new FilterResults();
+                FilterResults filterResults = new FilterResults();
                 filterResults.values = filteredItemList;
+                Log.d("FILTERED LIST",filteredItemList.toString());
                 return filterResults;
             }
-
+            @SuppressWarnings("unchecked")
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
+
                 filteredItemList = (List<RecipeModel>) results.values;
                 notifyDataSetChanged();
             }
